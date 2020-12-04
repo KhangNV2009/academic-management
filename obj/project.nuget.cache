@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ZhXRyqS5+/TEslK8iGGr2XGZ/inEKJ+VCaF/+jdmYEayvoh2nAj6bQJ/TByTJHs4cN13AUES16lThW+jwaVGOw==",
+  "dgSpecHash": "Fsoqu/8yeb9fF70AW8sqvmUkpC68OOegTfmzDgwgyJx6wvR29su/T56Js5IEAtqWbtVnDAUEVE2INQoJ4NeU1w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\khang\\OneDrive\\Desktop\\Khang\\Greenwich\\Application Development\\AcademicManagement\\AcademicManagement.csproj",
+  "projectFilePath": "C:\\Users\\khang\\OneDrive\\Desktop\\Khang\\Greenwich\\Application Development\\academic-management\\AcademicManagement.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\khang\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\khang\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
