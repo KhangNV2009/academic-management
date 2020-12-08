@@ -7,9 +7,14 @@
 
 <h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
+<button type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop">
+    Create
+</button>
+
 <table class="table">
     <thead>
         <tr>
@@ -61,6 +66,59 @@
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
-}
+}   
     </tbody>
 </table>
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Create new trainer account</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="">
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control pl-4" id="floatingInput" placeholder="Flavius Nguyen">
+                        <label for="floatingInput" class="ml-5">Full name</label>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control pl-4" id="floatingInput" placeholder="example@gmail.com">
+                        <label for="floatingInput" class="ml-5">Email</label>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control pl-4" id="floatingInput" placeholder="••••••••">
+                        <label for="floatingInput" class="ml-5">Password</label>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="form-floating mb-3">
+                        <input type="tel" class="form-control pl-4" id="floatingInput" placeholder="0901769008">
+                        <label for="floatingInput" class="ml-5">Telephone</label>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control pl-4" id="floatingInput" placeholder="Internal">
+                        <label for="floatingInput" class="ml-5">Type (Internal/External)</label>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control pl-4" id="floatingInput" placeholder="Nguyễn Xí">
+                        <label for="floatingInput" class="ml-5">Working place</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Apply</button>
+            </div>
+        </div>
+    </div>
+</div>

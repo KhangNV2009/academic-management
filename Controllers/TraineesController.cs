@@ -43,18 +43,9 @@ namespace AcademicManagement.Controllers
             return View(trainee);
         }
 
-        // GET: Trainees/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Trainees/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Age,DateOfBirth,Education,MainProgrammingLanguage,TOEICScore,ExperienceDetails,Department,Location,Id,Email,Password,Name,Telephone")] Trainee trainee)
+        public async Task<IActionResult> Index([Bind("Id,Name,Age,Email,Password,Telephone,DateOfBirth,Education,MainProgrammingLanguage,TOEICScore,ExperienceDetails,Department,Location")] Trainee trainee)
         {
             if (ModelState.IsValid)
             {

@@ -5,46 +5,37 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Management trainees</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<a class="link-primary pointer"
+   data-bs-toggle="modal"
+   data-bs-target="#createNewTrainee">
+    Create new trainee account
+</a>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Age)
+                @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateOfBirth)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Education)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MainProgrammingLanguage)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TOEICScore)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ExperienceDetails)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Department)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Location)
+                @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Email)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Password)
+                @Html.DisplayNameFor(model => model.Education)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayName("Main programming language")
+            </th>
+            <th>
+                @Html.DisplayName("TOEIC score")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Department)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Telephone)
@@ -53,50 +44,130 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Age)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateOfBirth)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Education)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MainProgrammingLanguage)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TOEICScore)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ExperienceDetails)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Department)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Location)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Telephone)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Education)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MainProgrammingLanguage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TOEICScore)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Department)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telephone)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<div class="modal fade" id="createNewTrainee" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Create new trainee account</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" asp-action="Index" asp-controller="Trainees">
+                <div class="modal-body row">
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="text" name="Name" class="form-control pl-4" id="floatingInput">
+                            <label for="floatingInput" class="ml-5">Full name</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="text" name="Age" class="form-control pl-4" id="floatingInput">
+                            <label for="floatingInput" class="ml-5">Age</label>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="form-floating mb-3">
+                            <input type="text" name="Email" class="form-control pl-4" id="floatingInput">
+                            <label for="floatingInput" class="ml-5">Email</label>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="form-floating mb-3">
+                            <input type="password" name="Password" class="form-control pl-4" id="floatingInput">
+                            <label for="floatingInput" class="ml-5">Password</label>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="form-floating mb-3">
+                            <input type="tel" name="Telephone" class="form-control pl-4" id="floatingInput">
+                            <label for="floatingInput" class="ml-5">Telephone</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="datetime-local" name="DateOfBirth" class="form-control pl-4" id="floatingInput">
+                            <label for="floatingInput" class="ml-5">Date of birth</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="text" name="Education" class="form-control pl-4" id="floatingInput">
+                            <label for="floatingInput" class="ml-5">Education</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="text" name="TOEICScore" class="form-control pl-4" id="floatingInput">
+                            <label for="floatingInput" class="ml-5">TOEIC Score</label>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="form-floating mb-3">
+                            <input type="tel" name="ExperienceDetails" class="form-control pl-4" id="floatingInput">
+                            <label for="floatingInput" class="ml-5">Experience details</label>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="form-floating mb-3">
+                            <input type="tel" name="MainProgrammingLanguage" class="form-control pl-4" id="floatingInput">
+                            <label for="floatingInput" class="ml-5">Main programming language</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="tel" name="Department" class="form-control pl-4" id="floatingInput">
+                            <label for="floatingInput" class="ml-5">Department</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="tel" name="Location" class="form-control pl-4" id="floatingInput">
+                            <label for="floatingInput" class="ml-5">Location</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" value="Create"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
