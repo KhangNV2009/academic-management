@@ -11,7 +11,7 @@ using AcademicManagement.Models;
 namespace AcademicManagement.Controllers
 {
     public class StaffsController : Controller
-    {
+    { 
         private readonly AcademicContext _context;
 
         public StaffsController(AcademicContext context)
