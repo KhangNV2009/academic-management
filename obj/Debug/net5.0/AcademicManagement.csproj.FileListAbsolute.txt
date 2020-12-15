@@ -527,4 +527,4 @@ C:\Users\Acer Pc\OneDrive\Documents\Application\Application\obj\Debug\net5.0\Aca
 C:\Users\Acer Pc\OneDrive\Documents\Application\Application\obj\Debug\net5.0\ref\AcademicManagement.dll
 C:\Users\Acer Pc\OneDrive\Documents\Application\Application\obj\Debug\net5.0\AcademicManagement.pdb
 C:\Users\Acer Pc\OneDrive\Documents\Application\Application\obj\Debug\net5.0\AcademicManagement.genruntimeconfig.cache
-C:\Users\Acer Pc\OneDrive\Documents\Application\Application\obj\Debug\net5.0\AcademicManagement.csprojAssemblyReference.cache
+C:\Users\Acer Pc\OneDrive\Documents\Application\Application\obj\Debug\net5.0\Razor\Views\Courses\Index.cshtml.g.cs
