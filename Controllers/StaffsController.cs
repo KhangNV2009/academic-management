@@ -7,34 +7,27 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AcademicManagement.Data;
 using AcademicManagement.Models;
+using AcademicManagement.FactoryMethod;
 
 namespace AcademicManagement.Controllers
 {
-    public class StaffsController : Controller
-    { 
-        private readonly AcademicContext _context;
-
-        public StaffsController(AcademicContext context)
+    public class StaffsController : StaffFactory
+    {
+        public StaffsController(AcademicContext context) : base(context)
         {
-            _context = context;
+            base.context = context;
         }
 
-        // GET: Staffs
-        public async Task<IActionResult> Index()
+        // GET: Staff
+        public IActionResult Index()
         {
-            return View(await _context.Staffs.ToListAsync());
+            return View(ViewAll().ToList());
         }
 
-        // GET: Staffs/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: Staff/Details/5
+        public IActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var staff = await _context.Staffs
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var staff = SearchById(id);
             if (staff == null)
             {
                 return NotFound();
@@ -43,37 +36,22 @@ namespace AcademicManagement.Controllers
             return View(staff);
         }
 
-        // GET: Staffs/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Staffs/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Email,Password,Name,Telephone")] Staff staff)
+        public IActionResult Index([Bind("Id,Name,Email,Password,Telephone")] Staff staff)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(staff);
-                await _context.SaveChangesAsync();
+                AddNew(staff);
                 return RedirectToAction(nameof(Index));
             }
             return View(staff);
         }
 
-        // GET: Staffs/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // GET:  Staff/Edit/5
+        public IActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var staff = await _context.Staffs.FindAsync(id);
+            var staff = SearchById(id);
             if (staff == null)
             {
                 return NotFound();
@@ -81,12 +59,12 @@ namespace AcademicManagement.Controllers
             return View(staff);
         }
 
-        // POST: Staffs/Edit/5
+        // POST:  Staff/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Email,Password,Name,Telephone")] Staff staff)
+        public IActionResult Edit(int id, [Bind("Id,Email,Password,Name,Telephone")] Staff staff)
         {
             if (id != staff.Id)
             {
@@ -97,8 +75,7 @@ namespace AcademicManagement.Controllers
             {
                 try
                 {
-                    _context.Update(staff);
-                    await _context.SaveChangesAsync();
+                    EditModel(staff);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -116,38 +93,170 @@ namespace AcademicManagement.Controllers
             return View(staff);
         }
 
-        // GET: Staffs/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET:  Staff/Delete/5
+        public IActionResult Delete(int id)
         {
-            if (id == null)
+            var trainee = SearchById(id);
+            if (trainee == null)
             {
                 return NotFound();
             }
 
-            var staff = await _context.Staffs
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (staff == null)
-            {
-                return NotFound();
-            }
-
-            return View(staff);
+            return View(trainee);
         }
 
-        // POST: Staffs/Delete/5
+        // POST:  Staff/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var staff = await _context.Staffs.FindAsync(id);
-            _context.Staffs.Remove(staff);
-            await _context.SaveChangesAsync();
+            var staff = SearchById(id);
+            DeleteModel(id);
             return RedirectToAction(nameof(Index));
         }
 
         private bool StaffExists(int id)
         {
-            return _context.Staffs.Any(e => e.Id == id);
+            return (SearchById(id) != null);
         }
+
+
+        //private readonly AcademicContext _context;
+
+        //public StaffsController(AcademicContext context)
+        //{
+        //    _context = context;
+        //}
+
+        //// GET: Staffs
+        //public async Task<IActionResult> Index()
+        //{
+        //    return View(await _context.Staffs.ToListAsync());
+        //}
+
+        //// GET: Staffs/Details/5
+        //public async Task<IActionResult> Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var staff = await _context.Staffs
+        //        .FirstOrDefaultAsync(m => m.Id == id);
+        //    if (staff == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(staff);
+        //}
+
+        //// GET: Staffs/Create
+        //public IActionResult Create()
+        //{
+        //    return View();
+        //}
+
+        //// POST: Staffs/Create
+        //// To protect from overposting attacks, enable the specific properties you want to bind to.
+        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create([Bind("Id,Email,Password,Name,Telephone")] Staff staff)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _context.Add(staff);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return View(staff);
+        //}
+
+        //// GET: Staffs/Edit/5
+        //public async Task<IActionResult> Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var staff = await _context.Staffs.FindAsync(id);
+        //    if (staff == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return View(staff);
+        //}
+
+        //// POST: Staffs/Edit/5
+        //// To protect from overposting attacks, enable the specific properties you want to bind to.
+        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(int id, [Bind("Id,Email,Password,Name,Telephone")] Staff staff)
+        //{
+        //    if (id != staff.Id)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            _context.Update(staff);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!StaffExists(staff.Id))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return View(staff);
+        //}
+
+        //// GET: Staffs/Delete/5
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var staff = await _context.Staffs
+        //        .FirstOrDefaultAsync(m => m.Id == id);
+        //    if (staff == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(staff);
+        //}
+
+        //// POST: Staffs/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(int id)
+        //{
+        //    var staff = await _context.Staffs.FindAsync(id);
+        //    _context.Staffs.Remove(staff);
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
+
+        //private bool StaffExists(int id)
+        //{
+        //    return _context.Staffs.Any(e => e.Id == id);
+        //}
     }
 }
