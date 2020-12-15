@@ -44,13 +44,13 @@
                 <div class="">
                     <div class="form-floating mb-3">
                         <input type="text" asp-for="Type" class="form-control pl-4" id="floatingInput" disabled>
-                        <label for="floatingInput" class="ml-5">Type/label>
+                        <label for="floatingInput" class="ml-5">Type</label>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button asp-action="Index" type="button" class="btn btn-secondary">Back to list</button>
-                <button asp-action="Edit" asp-route-id="@Model.Id" type="button" class="btn btn-primary">Edit</button>
+                <a asp-action="Index" class="btn btn-secondary">Back to list</a>
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
             </div>
         </div>
     </div>

@@ -40,7 +40,7 @@
             <div class="modal-footer">
                 <form asp-action="Delete">
                     <input type="hidden" asp-for="Id" />
-                    <input asp-action="Index" asp-controller="Staffs" class="btn btn-secondary" value="Back to List"/>
+                    <a asp-action="Index" class="btn btn-secondary">Back to list</a>
                     <input type="submit" value="Delete" class="btn btn-danger" />
                 </form>
             </div>
