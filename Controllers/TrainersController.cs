@@ -7,34 +7,29 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AcademicManagement.Data;
 using AcademicManagement.Models;
+using AcademicManagement.FactoryMethod;
 
 namespace AcademicManagement.Controllers
 {
-    public class TrainersController : Controller
+    public class TrainersController : TrainersFactory
     {
         private readonly AcademicContext _context;
 
-        public TrainersController(AcademicContext context)
+        public TrainersController(AcademicContext context) : base(context)
         {
-            _context = context;
+            base.context = context;
         }
 
         // GET: Trainers
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Trainers.ToListAsync());
+            return View(ViewAll().ToList());
         }
 
         // GET: Trainers/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var trainer = await _context.Trainers
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var trainer = SearchById(id);
             if (trainer == null)
             {
                 return NotFound();
@@ -43,37 +38,22 @@ namespace AcademicManagement.Controllers
             return View(trainer);
         }
 
-        // GET: Trainers/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Trainers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("WorkingPlace,Type,Id,Email,Password,Name,Telephone")] Trainer trainer)
+        public IActionResult Index([Bind("Id,Name,Email,Password,Telephone,WorkingPlace,Type")] Trainer trainer)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(trainer);
-                await _context.SaveChangesAsync();
+                AddNew(trainer);
                 return RedirectToAction(nameof(Index));
             }
             return View(trainer);
         }
 
         // GET: Trainers/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var trainer = await _context.Trainers.FindAsync(id);
+            var trainer = SearchById(id);
             if (trainer == null)
             {
                 return NotFound();
@@ -86,7 +66,7 @@ namespace AcademicManagement.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("WorkingPlace,Type,Id,Email,Password,Name,Telephone")] Trainer trainer)
+        public IActionResult Edit(int id, [Bind("Id,Name,Email,Password,Telephone,WorkingPlace,Type")] Trainer trainer)
         {
             if (id != trainer.Id)
             {
@@ -97,8 +77,7 @@ namespace AcademicManagement.Controllers
             {
                 try
                 {
-                    _context.Update(trainer);
-                    await _context.SaveChangesAsync();
+                    EditModel(trainer);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -117,15 +96,9 @@ namespace AcademicManagement.Controllers
         }
 
         // GET: Trainers/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var trainer = await _context.Trainers
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var trainer = SearchById(id);
             if (trainer == null)
             {
                 return NotFound();
@@ -137,17 +110,16 @@ namespace AcademicManagement.Controllers
         // POST: Trainers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var trainer = await _context.Trainers.FindAsync(id);
-            _context.Trainers.Remove(trainer);
-            await _context.SaveChangesAsync();
+            var trainer = SearchById(id);
+            DeleteModel(id);
             return RedirectToAction(nameof(Index));
         }
 
         private bool TrainerExists(int id)
         {
-            return _context.Trainers.Any(e => e.Id == id);
+            return (SearchById(id) != null);
         }
     }
 }

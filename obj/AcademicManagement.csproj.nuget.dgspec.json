@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Duc Khang\\Desktop\\MVC\\AcademicManagement.csproj": {}
+    "C:\\Users\\khang\\OneDrive\\Desktop\\Khang\\Greenwich\\Application Development\\academic-management\\AcademicManagement.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Duc Khang\\Desktop\\MVC\\AcademicManagement.csproj": {
+    "C:\\Users\\khang\\OneDrive\\Desktop\\Khang\\Greenwich\\Application Development\\academic-management\\AcademicManagement.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Duc Khang\\Desktop\\MVC\\AcademicManagement.csproj",
+        "projectUniqueName": "C:\\Users\\khang\\OneDrive\\Desktop\\Khang\\Greenwich\\Application Development\\academic-management\\AcademicManagement.csproj",
         "projectName": "AcademicManagement",
-        "projectPath": "C:\\Users\\Duc Khang\\Desktop\\MVC\\AcademicManagement.csproj",
-        "packagesPath": "C:\\Users\\Duc Khang\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Duc Khang\\Desktop\\MVC\\obj\\",
+        "projectPath": "C:\\Users\\khang\\OneDrive\\Desktop\\Khang\\Greenwich\\Application Development\\academic-management\\AcademicManagement.csproj",
+        "packagesPath": "C:\\Users\\khang\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\khang\\OneDrive\\Desktop\\Khang\\Greenwich\\Application Development\\academic-management\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Duc Khang\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\khang\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
