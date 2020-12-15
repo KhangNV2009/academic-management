@@ -1,57 +1,61 @@
 ﻿@model AcademicManagement.Models.Trainer
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details trainer</h1>
+<h1>Edit Trainee</h1>
 
-<div>
-    <div class="card">
-        <div class="card-body">
+<div class="card">
+    <div class="card-body">
+        <form method="post" asp-action="Edit" asp-controller="UserProfile">
             <div class="modal-body row">
-                <div class="">
+                <div class="col">
                     <div class="form-floating mb-3">
-                        <input type="text" asp-for="Name" class="form-control pl-4" id="floatingInput" disabled>
+                        <input type="text" asp-for="Name" class="form-control pl-4" id="floatingInput">
                         <label for="floatingInput" class="ml-5">Full name</label>
                     </div>
                 </div>
                 <div class="">
                     <div class="form-floating mb-3">
-                        <input type="text" asp-for="Email" class="form-control pl-4" id="floatingInput" disabled>
+                        <input type="text" asp-for="Email" class="form-control pl-4" id="floatingInput">
                         <label for="floatingInput" class="ml-5">Email</label>
                     </div>
                 </div>
                 <div class="">
                     <div class="form-floating mb-3">
-                        <input type="text" asp-for="Password" class="form-control pl-4" id="floatingInput" disabled>
+                        <input type="text" asp-for="Password" class="form-control pl-4" id="floatingInput">
                         <label for="floatingInput" class="ml-5">Password</label>
                     </div>
                 </div>
                 <div class="">
                     <div class="form-floating mb-3">
-                        <input type="tel" asp-for="Telephone" class="form-control pl-4" id="floatingInput" disabled>
+                        <input type="tel" asp-for="Telephone" class="form-control pl-4" id="floatingInput">
                         <label for="floatingInput" class="ml-5">Telephone</label>
                     </div>
                 </div>
-                <div class="">
+                <div class="col">
                     <div class="form-floating mb-3">
-                        <input type="text" asp-for="WorkingPlace" class="form-control pl-4" id="floatingInput" disabled>
-                        <label for="floatingInput" class="ml-5">Working place</label>
+                        <input type="text" asp-for="WorkingPlace" class="form-control pl-4" id="floatingInput">
+                        <label for="floatingInput" class="ml-5">WorkingPlace</label>
                     </div>
                 </div>
-                <div class="">
+                <div class="col">
                     <div class="form-floating mb-3">
-                        <input type="text" asp-for="Type" class="form-control pl-4" id="floatingInput" disabled>
-                        <label for="floatingInput" class="ml-5">Type/label>
+                        <input type="text" asp-for="Type" class="form-control pl-4" id="floatingInput">
+                        <label for="floatingInput" class="ml-5">Type</label>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button asp-action="Index" type="button" class="btn btn-secondary">Back to list</button>
-                <button asp-action="Edit" asp-route-id="@Model.Id" type="button" class="btn btn-primary">Edit</button>
+                <input type="submit" class="btn btn-primary" value="Save" />
             </div>
-        </div>
+        </form>
     </div>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

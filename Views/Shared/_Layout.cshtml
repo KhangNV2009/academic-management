@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - AcademicManagement</title>
+<<<<<<< HEAD
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link href="~/css/Login.css" rel="stylesheet" asp-append-version="true" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
@@ -20,6 +21,28 @@
                 <div class="greenwich-text">
                     <h4 class="color-primary">UNIVERSITY OF <br />GREENWICH</h4>
                     <p class="small-text color-primary">ALLIANCE WITH FPT EDUCATION</p>
+=======
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" 
+          rel="stylesheet" 
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+          crossorigin="anonymous">
+    <link href="~/css/site.css" rel="stylesheet" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">AcademicManagement</a>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                    </ul>
+>>>>>>> origin/NguyenDucKhang/staff_factory_15122020
                 </div>
             </div>
         </nav>
@@ -27,8 +50,30 @@
         @RenderBody()
     <footer>
 
+<<<<<<< HEAD
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+=======
+    <footer class="border-top footer text-muted bg-light">
+        <div class="container">
+            &copy; 2020 - Academic management system made by Power team- <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="row">
+                <div class="col">
+                    <h3>Team members</h3>
+                    <div>Nguyễn Vĩ Khang - GCS18028 - khangnvgcs18028@fpt.edu.vn</div>
+                    <div>Nguyễn Đức Khang - GCS18830 - khangndgcs18830@fpt.edu.vn</div>
+                    <div>Đinh Trọng Tâm - GCS18278 - tamdt18278@fpt.edu.vn</div>
+                </div>
+                <div class="col d-flex justify-content-end">
+                    <img src="~/img/logoGreenwich.png" height="150"/>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+            crossorigin="anonymous"></script>
+>>>>>>> origin/NguyenDucKhang/staff_factory_15122020
     @await RenderSectionAsync("Scripts", required: false)
     @await RenderSectionAsync("Style", required: false)
 </body>
