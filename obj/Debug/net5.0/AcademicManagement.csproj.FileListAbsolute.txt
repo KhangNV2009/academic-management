@@ -534,5 +534,9 @@ C:\Users\khang\OneDrive\Desktop\Khang\Greenwich\Application Development\academic
 C:\Users\khang\OneDrive\Desktop\Khang\Greenwich\Application Development\academic-management\obj\Debug\net5.0\AcademicManagement.csprojAssemblyReference.cache
 >>>>>>> origin/NguyenViKhang/trainee_controller_09122020
 C:\Users\Duc Khang\Desktop\MVC\bin\Debug\net5.0\libman.json
+<<<<<<< HEAD
 C:\Users\Duc Khang\Desktop\MVC\obj\Debug\net5.0\Razor\Views\UserProfile\Edit.cshtml.g.cs
 C:\Users\Duc Khang\Desktop\MVC\obj\Debug\net5.0\Razor\Views\UserProfile\EditProfile.cshtml.g.cs
+=======
+C:\Users\khang\OneDrive\Desktop\Khang\Greenwich\Application Development\academic-management\obj\Debug\net5.0\Razor\Views\UserProfile\Index.cshtml.g.cs
+>>>>>>> origin/NguyenViKhang/trainer_factory_15122020
