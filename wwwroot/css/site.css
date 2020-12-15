@@ -67,10 +67,10 @@
     border-radius: 50%;
    
 }
-.profile-name{
+.profile-name {
     font-weight: bold;
     margin: -20px 0 0 180px;
     color: white;
     font-size: 40px;
-    
+    background: #431A20;
 }
