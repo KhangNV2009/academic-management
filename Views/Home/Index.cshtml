@@ -1,8 +1,23 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Login";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="login_bg">
+    <div class="container-login-form">
+        <h1>Academic Portal</h1>
+        <select class="form-select mb-3 width-80-percent" aria-label="Administrator">
+            <option selected>Select roles</option>
+            <option value="Admin">Administrator</option>
+            <option value="Staff">Training Staff</option>
+            <option value="Trainer">Trainer</option>
+        </select>
+        <div class="form-floating mb-3 width-full">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <label for="floatingInput">Email address</label>
+        </div>
+        <div class="form-floating width-full">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+            <label for="floatingPassword">Password</label>
+        </div>
+        <button class="sign_in width-full mt-3 pt-1 pb-1"> Sign in</button>
+    </div>
 </div>

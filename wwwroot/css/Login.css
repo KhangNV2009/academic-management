@@ -1,0 +1,39 @@
+﻿.login_bg {
+    background-image: url('../University_of_greenwich.jpg');
+    border: 1px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 50px 35px;
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    align-items: center;
+}
+h1 {
+    color: #431a20;
+}
+.sign_in {
+    background-color: #431a20;
+    color: white;
+}
+
+.container-login-form {
+    height: 400px;
+    width: 500px;
+    padding: 20px;
+    background-color: #FFFFFFE6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.width-full {
+    width: 100%;
+}
+
+.width-80-percent {
+    width: 80%;
+}

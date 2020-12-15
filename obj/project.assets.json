@@ -7482,23 +7482,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\khang\\.nuget\\packages\\": {},
+    "C:\\Users\\Acer Pc\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\khang\\OneDrive\\Desktop\\Khang\\Greenwich\\Application Development\\academic-management\\AcademicManagement.csproj",
+      "projectUniqueName": "C:\\Users\\Acer Pc\\OneDrive\\Documents\\Application\\Application\\AcademicManagement.csproj",
       "projectName": "AcademicManagement",
-      "projectPath": "C:\\Users\\khang\\OneDrive\\Desktop\\Khang\\Greenwich\\Application Development\\academic-management\\AcademicManagement.csproj",
-      "packagesPath": "C:\\Users\\khang\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\khang\\OneDrive\\Desktop\\Khang\\Greenwich\\Application Development\\academic-management\\obj\\",
+      "projectPath": "C:\\Users\\Acer Pc\\OneDrive\\Documents\\Application\\Application\\AcademicManagement.csproj",
+      "packagesPath": "C:\\Users\\Acer Pc\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Acer Pc\\OneDrive\\Documents\\Application\\Application\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\khang\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Acer Pc\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7579,7 +7579,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }
