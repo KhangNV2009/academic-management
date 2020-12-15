@@ -7,21 +7,11 @@ namespace AcademicManagement.Models
 {
     public class User
     {
-        public User(object currentUser)
+        public User(object CurrentUser)
         {
-            if (currentUser is Admin)
-            {
-                Role = new Admin().GetType().Name;
-            }
-            if (currentUser is Staff)
-            {
-                Role = new Admin().GetType().Name;
-            }
-            if (currentUser is Trainer)
-            {
-                Role = new Trainer().GetType().Name;
-            }
+            Role = CurrentUser.GetType().Name;
         }
         public string Role { get; set; }
+        public string Email { get; set; }
     }
 }
