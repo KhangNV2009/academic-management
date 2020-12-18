@@ -1,0 +1,40 @@
+﻿@model AcademicManagement.Models.Category
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1>Edit</h1>
+
+<h4>Category</h4>
+<hr />
+<div class="card">
+    <div class="card-body">
+        <form method="post" asp-action="Edit" asp-controller="Categories">
+            <div class="modal-body row">
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input type="text" asp-for="Name" class="form-control pl-4" id="floatingInput">
+                        <label for="floatingInput" class="ml-5">Category name</label>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="form-floating mb-3">
+                        <input type="text" asp-for="Description" class="form-control pl-4" id="floatingInput">
+                        <label for="floatingInput" class="ml-5">Description</label>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <a asp-action="Index" class="btn btn-secondary">Back to list</a>
+                <input type="submit" class="btn btn-primary" value="Save" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
