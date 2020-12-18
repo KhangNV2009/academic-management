@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 
 namespace AcademicManagement.Models
 {
-    public class User
+    public class UserSingleton
     {
-        public User(object CurrentUser)
+        private static UserSingleton instance = new UserSingleton();
+        private UserSingleton() { }
+        public static UserSingleton getIntance()
         {
-            Role = CurrentUser.GetType().Name;
+            return instance;
         }
         public string Role { get; set; }
         public string Email { get; set; }

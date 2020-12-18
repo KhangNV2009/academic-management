@@ -21,7 +21,7 @@ namespace AcademicManagement.Controllers
         // GET: Staff
         public IActionResult Index()
         {
-            return View(ViewAll().ToList());
+            return View(ViewAll().ToList());   
         }
 
         // GET: Staff/Details/5

@@ -13,8 +13,6 @@ namespace AcademicManagement.Controllers
 {
     public class TrainersController : TrainersFactory
     {
-        private readonly AcademicContext _context;
-
         public TrainersController(AcademicContext context) : base(context)
         {
             base.context = context;
@@ -23,42 +21,57 @@ namespace AcademicManagement.Controllers
         // GET: Trainers
         public IActionResult Index()
         {
-            return View(ViewAll().ToList());
+            if(UserSingleton.getIntance().Role == new Staff().GetType().Name)
+            {
+                return View(ViewAll().ToList());
+            }
+            return RedirectToAction("Index", "NotFound");
         }
 
         // GET: Trainers/Details/5
         public IActionResult Details(int id)
         {
-            var trainer = SearchById(id);
-            if (trainer == null)
+            if (UserSingleton.getIntance().Role == new Staff().GetType().Name)
             {
-                return NotFound();
+                var trainer = SearchById(id);
+                if (trainer == null)
+                {
+                    return RedirectToAction("Index", "NotFound");
+                }
+                return View(trainer);
             }
-
-            return View(trainer);
+            return RedirectToAction("Index","NotFound");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Index([Bind("Id,Name,Email,Password,Telephone,WorkingPlace,Type")] Trainer trainer)
         {
-            if (ModelState.IsValid)
+            if (UserSingleton.getIntance().Role == new Staff().GetType().Name)
             {
-                AddNew(trainer);
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    AddNew(trainer);
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(trainer);   
             }
-            return View(trainer);
+            return RedirectToAction("Index", "NotFound");
         }
 
         // GET: Trainers/Edit/5
         public IActionResult Edit(int id)
         {
-            var trainer = SearchById(id);
-            if (trainer == null)
+            if (UserSingleton.getIntance().Role == new Staff().GetType().Name)
             {
-                return NotFound();
+                var trainer = SearchById(id);
+                if (trainer == null)
+                {
+                    return RedirectToAction("Index", "NotFound");
+                }
+                return View(trainer);
             }
-            return View(trainer);
+            return RedirectToAction("Index", "NotFound");      
         }
 
         // POST: Trainers/Edit/5
@@ -68,43 +81,50 @@ namespace AcademicManagement.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, [Bind("Id,Name,Email,Password,Telephone,WorkingPlace,Type")] Trainer trainer)
         {
-            if (id != trainer.Id)
+            if (UserSingleton.getIntance().Role == new Staff().GetType().Name)
             {
-                return NotFound();
-            }
+                if (id != trainer.Id)
+                {
+                    return RedirectToAction("Index", "NotFound");
+                }
 
-            if (ModelState.IsValid)
-            {
-                try
+                if (ModelState.IsValid)
                 {
-                    EditModel(trainer);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TrainerExists(trainer.Id))
+                    try
                     {
-                        return NotFound();
+                        EditModel(trainer);
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!TrainerExists(trainer.Id))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
                     }
+                    return RedirectToAction(nameof(Index));
                 }
-                return RedirectToAction(nameof(Index));
+                return View(trainer);
             }
-            return View(trainer);
+            return RedirectToAction("Index", "NotFound");
         }
 
         // GET: Trainers/Delete/5
         public IActionResult Delete(int id)
         {
-            var trainer = SearchById(id);
-            if (trainer == null)
+            if (UserSingleton.getIntance().Role == new Staff().GetType().Name)
             {
-                return NotFound();
+                var trainer = SearchById(id);
+                if (trainer == null)
+                {
+                    return RedirectToAction("Index", "NotFound");
+                }
+                return View(trainer);
             }
-
-            return View(trainer);
+            return RedirectToAction("Index", "NotFound");
         }
 
         // POST: Trainers/Delete/5
@@ -112,9 +132,13 @@ namespace AcademicManagement.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
-            var trainer = SearchById(id);
-            DeleteModel(id);
-            return RedirectToAction(nameof(Index));
+            if (UserSingleton.getIntance().Role == new Staff().GetType().Name)
+            {
+                var trainer = SearchById(id);
+                DeleteModel(id);
+                return RedirectToAction(nameof(Index));
+            }
+            return RedirectToAction("Index", "NotFound");
         }
 
         private bool TrainerExists(int id)

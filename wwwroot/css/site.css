@@ -101,3 +101,25 @@
 .min-height {
     min-height: 68vh;
 }
+
+.not-found-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    width: 100%;
+    height: 65vh;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.margin-left {
+    margin-left: 20px;
+}
+
+.margin-horizontal {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
