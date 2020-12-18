@@ -19,25 +19,23 @@ namespace AcademicManagement.Controllers
 
 		public IActionResult Index()
 		{
-			//var user = new User(new Trainer());
-			//user.Email = "khang@gmail.com";
-			//var trainer = _context.Trainers.First(m => m.Email == user.Email);
-			//if (trainer != null)
-			//{
-			//	return View(trainer);
-			//}
-			return View();
+			var email = UserSingleton.getIntance().Email;
+            var trainer = _context.Trainers.First(m => m.Email == email);
+            if (trainer != null)
+            {
+                return View(trainer);
+            }
+            return View();
 		}
 		public IActionResult Edit()
 		{
-			//var user = new User(new Trainer());
-			//user.Email = "khang@gmail.com";
-			//var trainer = _context.Trainers.First(m => m.Email == user.Email);
-			//if (trainer != null)
-			//{
-			//	return View(trainer);
-			//}
-			return View();
+			var email = UserSingleton.getIntance().Email;
+			var trainer = _context.Trainers.First(m => m.Email == email);
+            if (trainer != null)
+            {
+                return View(trainer);
+            }
+            return View();
 		}
 	}
 }
