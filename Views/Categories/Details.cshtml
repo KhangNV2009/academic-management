@@ -1,0 +1,31 @@
+﻿@model AcademicManagement.Models.Category
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1>Details</h1>
+
+<div>
+    <h4>Category</h4>
+    <hr />
+    <div>
+        <div class="card">
+            <div class="card-body">
+                <div class="modal-body row">
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="text" asp-for="Name" class="form-control pl-4" id="floatingInput" disabled>
+                            <label for="floatingInput" class="ml-5">Category name</label>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="form-floating mb-3">
+                            <input type="text" asp-for="Description" class="form-control pl-4" id="floatingInput" disabled>
+                            <label for="floatingInput" class="ml-5">Description</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
