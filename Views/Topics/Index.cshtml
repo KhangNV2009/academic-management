@@ -1,0 +1,102 @@
+﻿@model IEnumerable<AcademicManagement.Models.Topic>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Management Topic</h1>
+
+<a class="link-primary pointer pointer"
+   data-bs-toggle="modal"
+   data-bs-target="#createNewTopic">
+    Create new topic
+</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Trainer)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Course)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Trainer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Course)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<div class="modal fade" id="createNewTopic" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Create new topic account</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" asp-action="Index" asp-controller="Topics">
+                <div class="modal-body row">
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="text" name="Name" class="form-control pl-4" id="floatingInput">
+                            <label for="floatingInput" class="ml-5">Full name</label>
+                        </div>
+                    </div>
+
+                    <div class="">
+                        <div class="form-floating mb-3">
+                            <input type="text" name="Trainer" class="form-control pl-4" id="floatingInput">
+                            <label for="floatingInput" class="ml-5">Trainer</label>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="form-floating mb-3">
+                            <input type="text" name="Course" class="form-control pl-4" id="floatingInput">
+                            <label for="floatingInput" class="ml-5">Course</label>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="form-floating mb-3">
+                            <input type="text" name="Description" class="form-control pl-4" id="floatingInput">
+                            <label for="floatingInput" class="ml-5">Description</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" value="Create" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
