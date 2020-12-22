@@ -11,62 +11,62 @@ using AcademicManagement.FactoryMethod;
 
 namespace AcademicManagement.Controllers
 {
-    public class StaffsController : StaffFactory
-    {
-        public StaffsController(AcademicContext context) : base(context)
+	public class TopicsController : TopicFactory
+	{
+        public TopicsController(AcademicContext context) : base(context)
         {
             base.context = context;
         }
 
-        // GET: Staff
+        // GET: Topic
         public IActionResult Index()
         {
-            return View(ViewAll().ToList());   
+            return View(ViewAll().ToList());
         }
 
-        // GET: Staff/Details/5
+        // GET: Topic/Details/5
         public IActionResult Details(int id)
         {
-            var staff = SearchById(id);
-            if (staff == null)
+            var topic = SearchById(id);
+            if (topic == null)
             {
                 return NotFound();
             }
 
-            return View(staff);
+            return View(topic);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Index([Bind("Id,Name,Email,Password,Telephone")] Staff staff)
+        public IActionResult Index([Bind("Id,Name,Decription,Trainer,Course")] Topic topic)
         {
             if (ModelState.IsValid)
             {
-                AddNew(staff);
+                AddNew(topic);
                 return RedirectToAction(nameof(Index));
             }
-            return View(staff);
+            return View(topic);
         }
 
-        // GET:  Staff/Edit/5
+        // GET: Topic/Edit/5
         public IActionResult Edit(int id)
         {
-            var staff = SearchById(id);
-            if (staff == null)
+            var topic = SearchById(id);
+            if (topic == null)
             {
                 return NotFound();
             }
-            return View(staff);
+            return View(topic);
         }
 
-        // POST:  Staff/Edit/5
+        // POST: Topic/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("Id,Email,Password,Name,Telephone")] Staff staff)
+        public IActionResult Edit(int id, [Bind("Id,Name,Decription,Trainer,Course")] Topic topic)
         {
-            if (id != staff.Id)
+            if (id != topic.Id)
             {
                 return NotFound();
             }
@@ -75,11 +75,11 @@ namespace AcademicManagement.Controllers
             {
                 try
                 {
-                    EditModel(staff);
+                    EditModel(topic);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!StaffExists(staff.Id))
+                    if (!TraineeExists(topic.Id))
                     {
                         return NotFound();
                     }
@@ -90,32 +90,32 @@ namespace AcademicManagement.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(staff);
+            return View(topic);
         }
 
-        // GET:  Staff/Delete/5
+        // GET: Topic/Delete/5
         public IActionResult Delete(int id)
         {
-            var trainee = SearchById(id);
-            if (trainee == null)
+            var topic = SearchById(id);
+            if (topic == null)
             {
                 return NotFound();
             }
 
-            return View(trainee);
+            return View(topic);
         }
 
-        // POST:  Staff/Delete/5
+        // POST: Topic/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
-            var staff = SearchById(id);
+            var topic = SearchById(id);
             DeleteModel(id);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool StaffExists(int id)
+        private bool TraineeExists(int id)
         {
             return (SearchById(id) != null);
         }

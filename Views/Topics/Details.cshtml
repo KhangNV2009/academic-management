@@ -1,0 +1,50 @@
+﻿@model AcademicManagement.Models.Topic
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Topic</h4>
+    <hr />
+    <div>
+        <div class="card">
+            <div class="card-body">
+                <div class="modal-body row">
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="text" asp-for="Name" class="form-control pl-4" id="floatingInput" disabled>
+                            <label for="floatingInput" class="ml-5">Full name</label>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="form-floating mb-3">
+                            <input type="text" asp-for="Trainer" class="form-control pl-4" id="floatingInput" disabled>
+                            <label for="floatingInput" class="ml-5">Email</label>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="form-floating mb-3">
+                            <input type="password" asp-for="Course" class="form-control pl-4" id="floatingInput" disabled>
+                            <label for="floatingInput" class="ml-5">Course</label>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="form-floating mb-3">
+                            <input type="tel" asp-for="Description" class="form-control pl-4" id="floatingInput" disabled>
+                            <label for="floatingInput" class="ml-5">Description</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a asp-action="Index" class="btn btn-secondary">Back to list</a>
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
