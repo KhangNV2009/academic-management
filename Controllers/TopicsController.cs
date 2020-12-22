@@ -38,10 +38,13 @@ namespace AcademicManagement.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Index([Bind("Id,Name,Decription,Trainer,Course")] Topic topic)
+        public IActionResult Index([Bind("Id,Name,Decription,Trainer,Course")] Topic topic, int courseId, int trainerId)
         {
+
             if (ModelState.IsValid)
             {
+                topic.Trainer = this.context.Trainers.ToList().Find(item => item.Id == trainerId);
+                topic.Course = this.context.Courses.ToList().Find(item => item.Id == courseId);
                 AddNew(topic);
                 return RedirectToAction(nameof(Index));
             }
