@@ -442,3 +442,5 @@ $RECYCLE.BIN/
 !.vscode/extensions.json
 Migrations/20201208062241_InitialCreate.cs
 Migrations/20201208062241_InitialCreate.Designer.cs
+Migrations/20201219135337_InitialCreate.cs
+Migrations/20201219135337_InitialCreate.Designer.cs

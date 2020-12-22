@@ -43,11 +43,15 @@
 }
 
 .course-detail {
-    width: 70%;
+    width: 60%;
 }
 
 .teacher-info-container {
     display: flex;
     flex-direction: row;
-    
+}
+
+.topic-container {
+    display: flex;
+    flex-direction: row;
 }

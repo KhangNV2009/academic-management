@@ -1,6 +1,4 @@
-﻿@*@model IEnumerable<AcademicManagement.Models.Trainee>*@
-
-@using System.Dynamic;
+﻿@using System.Dynamic;
 @model dynamic;
 
 @{
@@ -22,17 +20,18 @@
                 </div>
                 <div class="">
                     <div class="form-floating mb-3">
-                        <select class="form-select" name="Category" id="floatingSelectGrid" aria-label="Floating label select example">
-                            <option value="Programming">Programming</option>
-                            <option value="Business">Business</option>
-                            <option value="Graphic Design">Graphic Design</option>
+                        <select class="form-select" name="CategoryId" id="floatingSelectGrid" aria-label="Floating label select example">
+                            @foreach (Category category in Model.Categories)
+                            {
+                                <option value="@category.Id">@category.Name</option>
+                            }
                         </select>
                         <label for="floatingSelectGrid">Category</label>
                     </div>
                 </div>
                 <div class="">
                     <div class="form-floating mb-3">
-                        <textarea class="form-control" name="Desciption" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 300px"></textarea>
+                        <textarea class="form-control" name="Description" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 300px"></textarea>
                         <label for="floatingTextarea2">Desciption</label>
                     </div>
                 </div>

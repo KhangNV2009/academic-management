@@ -1,0 +1,150 @@
+﻿@using System.Dynamic;
+@model dynamic;
+
+@{
+    ViewData["Title"] = "Courses";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create course</h1>
+
+<div class="card">
+    <div class="card-body">
+        <form method="post" asp-action="Edit" asp-controller="Courses">
+            <div class="modal-body row">
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input type="text" name="Name" value="@Model.Course.Name" class="form-control pl-4" id="floatingInput">
+                        <label for="floatingInput" class="ml-5">Course name</label>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="form-floating mb-3">
+                        <select class="form-select" name="CategoryId" id="floatingSelectGrid" aria-label="Floating label select example">
+                            @foreach (Category category in Model.Categories)
+                            {
+                                @if (Model.Course.Category.Id == @category.Id)
+                                {
+                                    <option value="@category.Id" selected>@category.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@category.Id">@category.Name</option>
+                                }
+                            }
+                        </select>
+                        <label for="floatingSelectGrid">Category</label>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="form-floating mb-3">
+                        <textarea class="form-control"
+                                  name="Description"
+                                  id="floatingTextarea2"
+                                  style="height: 300px">@Model.Course.Description</textarea>
+                        <label for="floatingTextarea2">Desciption</label>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="form-floating mb-3">
+                        <input type="tel" class="form-control pl-4" id="floatingInput">
+                        <label for="floatingInput" class="ml-5">Search trainees</label>
+                    </div>
+                </div>
+                <div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayName("Id")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Name")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Email")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Telephone")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("TOEIC score")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Education")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Assign to course")
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (TraineeCourse item in Model.CourseTrainees)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TraineeId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Trainee.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Trainee.Email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Trainee.Telephone)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Trainee.TOEICScore)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Trainee.Education)
+                                    </td>
+                                    <td>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="listId" value="@item.TraineeId" checked>
+                                            <label class="form-check-label" for="inlineCheckbox1">Assign</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                            @foreach (Trainee item in Model.Trainees)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Telephone)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TOEICScore)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Education)
+                                    </td>
+                                    <td>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="listId" value="@item.Id">
+                                            <label class="form-check-label" for="inlineCheckbox1">Assign</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" name="courseId" value="@Model.Course.Id" />
+                <a asp-action="Index" class="btn btn-secondary">Back to list</a>
+                <input type="submit" class="btn btn-primary" value="Save" />
+            </div>
+        </form>
+    </div>
