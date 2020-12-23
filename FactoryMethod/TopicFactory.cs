@@ -43,8 +43,12 @@ namespace AcademicManagement.FactoryMethod
 
 		public Topic SearchById(int id)
 		{
-			var topics = this.context.Topics.Find(id);
-			return topics;
+			var trainers = context.Trainers.ToList();
+			var courses = context.Courses.ToList();
+			var topic = context.Topics.ToList().Find(item => item.Id == id);
+			topic.Course = courses.Find(item => item.Id == topic.Course.Id);
+			topic.Trainer = trainers.Find(item => item.Id == topic.Trainer.Id);
+			return topic;
 		}
 
 		public List<Topic> SearchByName(string name)

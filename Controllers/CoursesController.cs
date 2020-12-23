@@ -6,14 +6,13 @@ using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using AcademicManagement.Models;
+using AcademicManagement.FactoryMethod;
 
 namespace AcademicManagement.Controllers
 {
-    public class CoursesController : Controller
+    public class CoursesController : CoursesFactory
     {
-        public AcademicContext context;
-
-        public CoursesController(AcademicContext context)
+        public CoursesController(AcademicContext context): base(context)
         {
             this.context = context;
         }
@@ -21,22 +20,14 @@ namespace AcademicManagement.Controllers
         public IActionResult Index()
         {
             var courses = this.context.Courses.ToList();
-            var topics = this.context.Topics.ToList();
-            var trainers = this.context.Trainers.ToList();
+            //var topics = this.context.Topics.ToList();
+            //var trainers = this.context.Trainers.ToList();
            
             courses.ForEach(course =>
             {
-                var currentTopic = topics.Find(item => item.Course.Id == course.Id);
-                if(currentTopic != null)
-                {
-                    var currentTrainer = trainers.Find(item => item.Id == currentTopic.Trainer.Id);
-                    if (currentTrainer != null)
-                    {
-                        currentTopic.Trainer = currentTrainer;
-                    }
-                    course.Topics.Add(currentTopic);
-                }
+                course = SearchById(course.Id);
             });
+           
             return View(courses);
         }
 
@@ -55,46 +46,33 @@ namespace AcademicManagement.Controllers
         public IActionResult Assign(int[] listId, string Name, int CategoryId, string Description)
         {
             var categories = this.context.Categories.ToList();
-            var trainees = this.context.Trainees.ToList();
-            var traineesCourses = this.context.CourseTrainees.ToList();
-
+            
             var course = new Course();
             course.Name = Name;
             course.Description = Description;
             course.Category = categories.Find(item => item.Id == CategoryId);
-            
-            foreach(var id in listId)
-            {
-                TraineeCourse traineeCourse = new TraineeCourse();
-                traineeCourse.Course = course;
-                traineeCourse.Trainee = trainees.Find(item => item.Id == id);
-                this.context.Add(traineeCourse);
-            }
-            this.context.Add(course);
-            this.context.SaveChanges();
+
+            AddNewTraineeCourse(listId, course);
+            AddNew(course);
             
             return RedirectToAction(nameof(Index));
         }
         public IActionResult Edit(int id)
         {
-            var currentCourse = this.context.Courses.ToList().Find(item => item.Id == id);
+            var course = SearchById(id);
             var categories = this.context.Categories.ToList();
             var trainees = this.context.Trainees.ToList();
-            var courseTrainees = this.context.CourseTrainees.ToList().FindAll(item => item.CourseId == id);
 
-            courseTrainees.ForEach(item =>
+            course.TraineeCourses.ToList().ForEach(item =>
             {
-                var traineeInCourse = trainees.Find(trainee => trainee.Id == item.TraineeId);
-                item.Trainee = traineeInCourse;
-                trainees.Remove(traineeInCourse);
+                trainees.Remove(item.Trainee);
             });
 
-
             dynamic models = new ExpandoObject();
-            models.CourseTrainees = courseTrainees;
+            models.CourseTrainees = course.TraineeCourses;
             models.Trainees = trainees;
             models.Categories = categories;
-            models.Course = currentCourse;
+            models.Course = course;
 
             return View(models);
         }
@@ -104,33 +82,35 @@ namespace AcademicManagement.Controllers
         {
             var course = this.context.Courses.ToList().Find(item => item.Id == courseId);
             var categories = this.context.Categories.ToList();
-            var trainees = this.context.Trainees.ToList();
-            var currentTraineeCourses = this.context.CourseTrainees.ToList().FindAll(item => item.CourseId == courseId);
 
-            if(currentTraineeCourses != null)
-            {
-                currentTraineeCourses.ForEach(item =>
-                {
-                    this.context.CourseTrainees.Remove(item);
-                    course.TraineeCourses.Remove(item);
-                });
-            }
 
-            foreach (var id in listId)
-            {
-                TraineeCourse traineeCourse = new TraineeCourse();
-                traineeCourse.Course = course;
-                traineeCourse.Trainee = trainees.Find(item => item.Id == id);
-                this.context.Add(traineeCourse);
-            }
+            DeleteTraineeCourses(courseId);
+            AddNewTraineeCourse(listId, course);
 
             course.Name = Name;
             course.Category = categories.Find(item => item.Id == CategoryId);
             course.Description = Description;
-            this.context.Courses.Update(course);
 
-            this.context.SaveChanges();
+            EditModel(course);
 
+            return RedirectToAction(nameof(Index));
+        }
+        public IActionResult Details(int id)
+        {
+            var course = SearchById(id);
+            return View(course);
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var course = SearchById(id);
+            return View(course);
+        }
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            DeleteModel(id);
             return RedirectToAction(nameof(Index));
         }
     }

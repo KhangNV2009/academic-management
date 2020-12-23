@@ -1,11 +1,12 @@
-﻿@model AcademicManagement.Models.Topic
+﻿@using System.Dynamic;
+@model dynamic;
 
 @{
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 >Edit</h1>
+<h1>Edit</h1>
 
 <h4>Staff</h4>
 <hr />
@@ -15,25 +16,49 @@
             <div class="modal-body row">
                 <div class="col">
                     <div class="form-floating mb-3">
-                        <input type="text" asp-for="Name" class="form-control pl-4" id="floatingInput" disabled>
+                        <input type="text" name="Name" value="@Model.Topic.Name" class="form-control pl-4" id="floatingInput">
                         <label for="floatingInput" class="ml-5">Full name</label>
                     </div>
                 </div>
                 <div class="">
                     <div class="form-floating mb-3">
-                        <input type="text" asp-for="Trainer" class="form-control pl-4" id="floatingInput" disabled>
-                        <label for="floatingInput" class="ml-5">Trainer</label>
+                        <select class="form-select" name="trainerId" id="floatingSelectGrid" aria-label="Floating label select example">
+                            @foreach (Trainer trainer in Model.Trainers)
+                            {
+                                @if (Model.Topic.Trainer.Id == trainer.Id)
+                                {
+                                    <option value="@trainer.Id" selected>@trainer.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@trainer.Id">@trainer.Name</option>
+                                }
+                            }
+                        </select>
+                        <label for="floatingSelectGrid">Trainer</label>
                     </div>
                 </div>
                 <div class="">
                     <div class="form-floating mb-3">
-                        <input type="password" asp-for="Course" class="form-control pl-4" id="floatingInput" disabled>
-                        <label for="floatingInput" class="ml-5">Course</label>
+                        <select class="form-select" name="courseId" id="floatingSelectGrid" aria-label="Floating label select example">
+                            @foreach (Course course in Model.Courses)
+                            {
+                                @if (Model.Topic.Course.Id == course.Id)
+                                {
+                                    <option value="@course.Id" selected>@course.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@course.Id">@course.Name</option>
+                                }
+                            }
+                        </select>
+                        <label for="floatingSelectGrid">Course</label>
                     </div>
                 </div>
                 <div class="">
                     <div class="form-floating mb-3">
-                        <input type="tel" asp-for="Description" class="form-control pl-4" id="floatingInput" disabled>
+                        <input type="text" name="Description" value="@Model.Topic.Description" class="form-control pl-4" id="floatingInput">
                         <label for="floatingInput" class="ml-5">Description</label>
                     </div>
                 </div>

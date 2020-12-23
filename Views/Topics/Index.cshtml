@@ -1,4 +1,5 @@
-﻿@model IEnumerable<AcademicManagement.Models.Topic>
+﻿@using System.Dynamic;
+@model dynamic;
 
 @{
     ViewData["Title"] = "Index";
@@ -17,23 +18,23 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                @Html.DisplayName("Id")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayName("Name")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Trainer)
+                @Html.DisplayName("Trainer")
             </th>
 
             <th>
-                @Html.DisplayNameFor(model => model.Course)
+                @Html.DisplayName("Course")
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (Topic item in Model.Topics)
         {
             <tr>
                 <td>
@@ -43,7 +44,7 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Trainer)
+                    @Html.DisplayFor(modelItem => item.Trainer.Name)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Course.Name)
@@ -76,14 +77,24 @@
 
                     <div class="">
                         <div class="form-floating mb-3">
-                            <input type="text" name="trainerId" class="form-control pl-4" id="floatingInput">
-                            <label for="floatingInput" class="ml-5">Trainer</label>
+                            <select class="form-select" name="trainerId" id="floatingSelectGrid" aria-label="Floating label select example">
+                                @foreach (Trainer trainer in Model.Trainers)
+                                {
+                                    <option value="@trainer.Id">@trainer.Name</option>
+                                }
+                            </select>
+                            <label for="floatingSelectGrid">Trainer</label>
                         </div>
                     </div>
                     <div class="">
                         <div class="form-floating mb-3">
-                            <input type="text" name="courseId" class="form-control pl-4" id="floatingInput">
-                            <label for="floatingInput" class="ml-5">Course</label>
+                            <select class="form-select" name="courseId" id="floatingSelectGrid" aria-label="Floating label select example">
+                                @foreach (Course course in Model.Courses)
+                                {
+                                    <option value="@course.Id">@course.Name</option>
+                                }
+                            </select>
+                            <label for="floatingSelectGrid">Course</label>
                         </div>
                     </div>
                     <div class="">

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AcademicManagement.Data;
 using AcademicManagement.Models;
 using AcademicManagement.FactoryMethod;
+using System.Dynamic;
 
 namespace AcademicManagement.Controllers
 {
@@ -21,7 +22,14 @@ namespace AcademicManagement.Controllers
         // GET: Topic
         public IActionResult Index()
         {
-            return View(ViewAll().ToList());
+            var trainers = context.Trainers.ToList();
+            var courses = context.Courses.ToList();
+            var topics = ViewAll().ToList();
+            dynamic models = new ExpandoObject();
+            models.Trainers = trainers;
+            models.Courses = courses;
+            models.Topics = topics;
+            return View(models);
         }
 
         // GET: Topic/Details/5
@@ -38,7 +46,7 @@ namespace AcademicManagement.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Index([Bind("Id,Name,Decription,Trainer,Course")] Topic topic, int courseId, int trainerId)
+        public IActionResult Index([Bind("Id,Name,Description,Trainer,Course")] Topic topic, int courseId, int trainerId)
         {
 
             if (ModelState.IsValid)
@@ -55,11 +63,17 @@ namespace AcademicManagement.Controllers
         public IActionResult Edit(int id)
         {
             var topic = SearchById(id);
+            var trainers = context.Trainers.ToList();
+            var courses = context.Courses.ToList();
             if (topic == null)
             {
                 return NotFound();
             }
-            return View(topic);
+            dynamic models = new ExpandoObject();
+            models.Trainers = trainers;
+            models.Courses = courses;
+            models.Topic = topic;
+            return View(models);
         }
 
         // POST: Topic/Edit/5
@@ -67,7 +81,7 @@ namespace AcademicManagement.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("Id,Name,Decription,Trainer,Course")] Topic topic)
+        public IActionResult Edit(int id, [Bind("Id,Name,Description,Trainer,Course")] Topic topic, int courseId, int trainerId)
         {
             if (id != topic.Id)
             {
@@ -78,6 +92,8 @@ namespace AcademicManagement.Controllers
             {
                 try
                 {
+                    topic.Course = context.Courses.ToList().Find(item => item.Id == courseId);
+                    topic.Trainer = context.Trainers.ToList().Find(item => item.Id == trainerId);
                     EditModel(topic);
                 }
                 catch (DbUpdateConcurrencyException)

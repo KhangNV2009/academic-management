@@ -1,0 +1,142 @@
+﻿@model AcademicManagement.Models.Course;
+
+@{
+    ViewData["Title"] = "Courses";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create course</h1>
+
+<div class="card">
+    <div class="card-body">
+        <form method="post" asp-action="Delete" asp-controller="Courses">
+            <div class="modal-body row">
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input type="text" asp-for="Name" class="form-control pl-4" id="floatingInput" disabled>
+                        <label for="floatingInput" class="ml-5">Course name</label>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="form-floating mb-3">
+                        <input type="text" asp-for="Category.Name" class="form-control pl-4" id="floatingInput" disabled>
+                        <label for="floatingInput" class="ml-5">Category name</label>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="form-floating mb-3">
+                        <textarea class="form-control"
+                                  name="Description"
+                                  id="floatingTextarea2"
+                                  style="height: 300px"
+                                  disabled>@Model.Description</textarea>
+                        <label for="floatingTextarea2">Desciption</label>
+                    </div>
+                </div>
+                <div>
+                    <h3>Trainees</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayName("Id")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Name")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Email")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Telephone")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("TOEIC score")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Education")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Assign to course")
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (TraineeCourse item in Model.TraineeCourses)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TraineeId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Trainee.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Trainee.Email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Trainee.Telephone)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Trainee.TOEICScore)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Trainee.Education)
+                                    </td>
+                                    <td>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="listId" value="@item.TraineeId" checked disabled>
+                                            <label class="form-check-label" for="inlineCheckbox1">Assign</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <h3>Topics</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayName("Id")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Name")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Trainer")
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Topics != null)
+                            {
+                                @foreach (Topic item in Model.Topics)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Id)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Trainer.Name)
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" asp-for="Id" />
+                <a asp-action="Index" class="btn btn-secondary">Back to list</a>
+                <input type="submit" value="Delete" class="btn btn-danger" />
+            </div>
+        </form>
+    </div>
+</div>
