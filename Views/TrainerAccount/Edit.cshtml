@@ -9,9 +9,14 @@
 
 <div class="card">
     <div class="card-body">
-        <form method="post" asp-action="Edit" asp-controller="UserProfile">
+        <form method="post" asp-action="Edit" asp-controller="TrainerAccount" enctype="multipart/form-data">
             <div class="modal-body row">
-                <div class="col">
+                <div class="">
+                    <div class="form-floating mb-3">
+                        @Html.TextBox("file", "", new { type = "file" })
+                    </div>
+                </div>
+                <div class="">
                     <div class="form-floating mb-3">
                         <input type="text" asp-for="Name" class="form-control pl-4" id="floatingInput">
                         <label for="floatingInput" class="ml-5">Full name</label>
@@ -49,6 +54,7 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <input type="hidden" asp-for="Id"/>
                 <button asp-action="Index" type="button" class="btn btn-secondary">Back to list</button>
                 <input type="submit" class="btn btn-primary" value="Save" />
             </div>

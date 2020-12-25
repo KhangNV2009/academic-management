@@ -22,58 +22,72 @@ namespace AcademicManagement.Controllers
         // GET: Topic
         public IActionResult Index()
         {
-            var trainers = context.Trainers.ToList();
-            var courses = context.Courses.ToList();
-            var topics = ViewAll().ToList();
-            dynamic models = new ExpandoObject();
-            models.Trainers = trainers;
-            models.Courses = courses;
-            models.Topics = topics;
-            return View(models);
+            if (UserSingleton.getIntance().Role == new Staff().GetType().Name)
+            {
+                var trainers = context.Trainers.ToList();
+                var courses = context.Courses.ToList();
+                var topics = ViewAll().ToList();
+                dynamic models = new ExpandoObject();
+                models.Trainers = trainers;
+                models.Courses = courses;
+                models.Topics = topics;
+                return View(models);
+            }
+            return RedirectToAction("Index", "NotFound");
         }
 
         // GET: Topic/Details/5
         public IActionResult Details(int id)
         {
-            var topic = SearchById(id);
-            if (topic == null)
+            if (UserSingleton.getIntance().Role == new Staff().GetType().Name)
             {
-                return NotFound();
+                var topic = SearchById(id);
+                if (topic == null)
+                {
+                    return RedirectToAction("Index", "NotFound");
+                }
+                return View(topic);
             }
-
-            return View(topic);
+            return RedirectToAction("Index", "NotFound");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Index([Bind("Id,Name,Description,Trainer,Course")] Topic topic, int courseId, int trainerId)
         {
-
-            if (ModelState.IsValid)
+            if (UserSingleton.getIntance().Role == new Staff().GetType().Name)
             {
-                topic.Trainer = this.context.Trainers.ToList().Find(item => item.Id == trainerId);
-                topic.Course = this.context.Courses.ToList().Find(item => item.Id == courseId);
-                AddNew(topic);
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    topic.Trainer = this.context.Trainers.ToList().Find(item => item.Id == trainerId);
+                    topic.Course = this.context.Courses.ToList().Find(item => item.Id == courseId);
+                    AddNew(topic);
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(topic);
             }
-            return View(topic);
+            return RedirectToAction("Index", "NotFound");
         }
 
         // GET: Topic/Edit/5
         public IActionResult Edit(int id)
         {
-            var topic = SearchById(id);
-            var trainers = context.Trainers.ToList();
-            var courses = context.Courses.ToList();
-            if (topic == null)
+            if (UserSingleton.getIntance().Role == new Staff().GetType().Name)
             {
-                return NotFound();
+                var topic = SearchById(id);
+                var trainers = context.Trainers.ToList();
+                var courses = context.Courses.ToList();
+                if (topic == null)
+                {
+                    return RedirectToAction("Index", "NotFound");
+                }
+                dynamic models = new ExpandoObject();
+                models.Trainers = trainers;
+                models.Courses = courses;
+                models.Topic = topic;
+                return View(models);
             }
-            dynamic models = new ExpandoObject();
-            models.Trainers = trainers;
-            models.Courses = courses;
-            models.Topic = topic;
-            return View(models);
+            return RedirectToAction("Index", "NotFound");
         }
 
         // POST: Topic/Edit/5
@@ -83,45 +97,52 @@ namespace AcademicManagement.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, [Bind("Id,Name,Description,Trainer,Course")] Topic topic, int courseId, int trainerId)
         {
-            if (id != topic.Id)
+            if (UserSingleton.getIntance().Role == new Staff().GetType().Name)
             {
-                return NotFound();
-            }
+                if (id != topic.Id)
+                {
+                    return RedirectToAction("Index", "NotFound");
+                }
 
-            if (ModelState.IsValid)
-            {
-                try
+                if (ModelState.IsValid)
                 {
-                    topic.Course = context.Courses.ToList().Find(item => item.Id == courseId);
-                    topic.Trainer = context.Trainers.ToList().Find(item => item.Id == trainerId);
-                    EditModel(topic);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TraineeExists(topic.Id))
+                    try
                     {
-                        return NotFound();
+                        topic.Course = context.Courses.ToList().Find(item => item.Id == courseId);
+                        topic.Trainer = context.Trainers.ToList().Find(item => item.Id == trainerId);
+                        EditModel(topic);
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!TraineeExists(topic.Id))
+                        {
+                            return RedirectToAction("Index", "NotFound");
+                        }
+                        else
+                        {
+                            throw;
+                        }
                     }
+                    return RedirectToAction(nameof(Index));
                 }
-                return RedirectToAction(nameof(Index));
+                return View(topic);
             }
-            return View(topic);
+            return RedirectToAction("Index", "NotFound");
         }
 
         // GET: Topic/Delete/5
         public IActionResult Delete(int id)
         {
-            var topic = SearchById(id);
-            if (topic == null)
+            if (UserSingleton.getIntance().Role == new Staff().GetType().Name)
             {
-                return NotFound();
+                var topic = SearchById(id);
+                if (topic == null)
+                {
+                    return RedirectToAction("Index", "NotFound");
+                }
+                return View(topic);
             }
-
-            return View(topic);
+            return RedirectToAction("Index", "NotFound");
         }
 
         // POST: Topic/Delete/5
@@ -129,9 +150,13 @@ namespace AcademicManagement.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
-            var topic = SearchById(id);
-            DeleteModel(id);
-            return RedirectToAction(nameof(Index));
+            if (UserSingleton.getIntance().Role == new Staff().GetType().Name)
+            {
+                var topic = SearchById(id);
+                DeleteModel(id);
+                return RedirectToAction(nameof(Index));
+            }
+            return RedirectToAction("Index", "NotFound");
         }
 
         private bool TraineeExists(int id)

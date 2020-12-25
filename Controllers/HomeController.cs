@@ -43,7 +43,7 @@ namespace AcademicManagement.Controllers
                         var admin = context.Admins.Where(admin => admin.Email == email && admin.Password == password).Single();
                         UserSingleton.getIntance().Email = admin.Email;
                         UserSingleton.getIntance().Role = role;
-                        return RedirectToAction("Index", "Staffs");
+                        return RedirectToAction("Index", "Admins");
                     }
                     catch (Exception exception)
                     {
@@ -75,7 +75,7 @@ namespace AcademicManagement.Controllers
                         var trainer = context.Trainers.Where(trainer => trainer.Email == email && trainer.Password == password).Single();
                         UserSingleton.getIntance().Email = trainer.Email;
                         UserSingleton.getIntance().Role = role;
-                        return RedirectToAction("Index", "UserProfile");
+                        return RedirectToAction("Index", "TrainerAccount");
                     }
                     catch (Exception exception)
                     {

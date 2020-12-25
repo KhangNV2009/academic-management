@@ -21,42 +21,57 @@ namespace AcademicManagement.Controllers
         // GET: Staff
         public IActionResult Index()
         {
-            return View(ViewAll().ToList());   
+            if (UserSingleton.getIntance().Role == new Admin().GetType().Name)
+            {
+                return View(ViewAll().ToList());
+            }
+            return RedirectToAction("Index", "NotFound");
         }
 
         // GET: Staff/Details/5
         public IActionResult Details(int id)
         {
-            var staff = SearchById(id);
-            if (staff == null)
+            if (UserSingleton.getIntance().Role == new Admin().GetType().Name)
             {
-                return NotFound();
+                var staff = SearchById(id);
+                if (staff == null)
+                {
+                    return RedirectToAction("Index", "NotFound");
+                }
+                return View(staff);
             }
-
-            return View(staff);
+            return RedirectToAction("Index", "NotFound");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Index([Bind("Id,Name,Email,Password,Telephone")] Staff staff)
         {
-            if (ModelState.IsValid)
+            if (UserSingleton.getIntance().Role == new Admin().GetType().Name)
             {
-                AddNew(staff);
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    AddNew(staff);
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(staff);
             }
-            return View(staff);
+            return RedirectToAction("Index", "NotFound");
         }
 
         // GET:  Staff/Edit/5
         public IActionResult Edit(int id)
         {
-            var staff = SearchById(id);
-            if (staff == null)
+            if (UserSingleton.getIntance().Role == new Admin().GetType().Name)
             {
-                return NotFound();
+                var staff = SearchById(id);
+                if (staff == null)
+                {
+                    return RedirectToAction("Index", "NotFound");
+                }
+                return View(staff);
             }
-            return View(staff);
+            return RedirectToAction("Index", "NotFound");
         }
 
         // POST:  Staff/Edit/5
@@ -66,43 +81,50 @@ namespace AcademicManagement.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, [Bind("Id,Email,Password,Name,Telephone")] Staff staff)
         {
-            if (id != staff.Id)
+            if (UserSingleton.getIntance().Role == new Admin().GetType().Name)
             {
-                return NotFound();
-            }
+                if (id != staff.Id)
+                {
+                    return RedirectToAction("Index", "NotFound");
+                }
 
-            if (ModelState.IsValid)
-            {
-                try
+                if (ModelState.IsValid)
                 {
-                    EditModel(staff);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!StaffExists(staff.Id))
+                    try
                     {
-                        return NotFound();
+                        EditModel(staff);
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!StaffExists(staff.Id))
+                        {
+                            return RedirectToAction("Index", "NotFound");
+                        }
+                        else
+                        {
+                            throw;
+                        }
                     }
+                    return RedirectToAction(nameof(Index));
                 }
-                return RedirectToAction(nameof(Index));
+                return View(staff);
             }
-            return View(staff);
+            return RedirectToAction("Index", "NotFound");
         }
 
         // GET:  Staff/Delete/5
         public IActionResult Delete(int id)
         {
-            var trainee = SearchById(id);
-            if (trainee == null)
+            if (UserSingleton.getIntance().Role == new Admin().GetType().Name)
             {
-                return NotFound();
+                var trainee = SearchById(id);
+                if (trainee == null)
+                {
+                    return RedirectToAction("Index", "NotFound");
+                }
+                return View(trainee);
             }
-
-            return View(trainee);
+            return RedirectToAction("Index", "NotFound");
         }
 
         // POST:  Staff/Delete/5
@@ -110,9 +132,13 @@ namespace AcademicManagement.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
-            var staff = SearchById(id);
-            DeleteModel(id);
-            return RedirectToAction(nameof(Index));
+            if (UserSingleton.getIntance().Role == new Admin().GetType().Name)
+            {
+                var staff = SearchById(id);
+                DeleteModel(id);
+                return RedirectToAction(nameof(Index));
+            }
+            return RedirectToAction("Index", "NotFound");
         }
 
         private bool StaffExists(int id)

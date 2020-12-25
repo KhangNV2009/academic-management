@@ -20,42 +20,57 @@ namespace AcademicManagement.Controllers
         // GET: Category
         public IActionResult Index()
         {
-            return View(ViewAll().ToList());
+            if (UserSingleton.getIntance().Role == new Staff().GetType().Name)
+            {
+                return View(ViewAll().ToList());
+            }
+            return RedirectToAction("Index", "NotFound");
         }
 
         // GET: Category/Details/5
         public IActionResult Details(int id)
         {
-            var category = SearchById(id);
-            if (category == null)
+            if (UserSingleton.getIntance().Role == new Staff().GetType().Name)
             {
-                return NotFound();
+                var category = SearchById(id);
+                if (category == null)
+                {
+                    return RedirectToAction("Index", "NotFound");
+                }
+                return View(category);
             }
-
-            return View(category);
+            return RedirectToAction("Index", "NotFound");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Index([Bind("Id,Name,Description")] Category category)
         {
-            if (ModelState.IsValid)
+            if (UserSingleton.getIntance().Role == new Staff().GetType().Name)
             {
-                AddNew(category);
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    AddNew(category);
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(category);
             }
-            return View(category);
+            return RedirectToAction("Index", "NotFound");
         }
 
         // GET:  Category/Edit/5
         public IActionResult Edit(int id)
         {
-            var category = SearchById(id);
-            if (category == null)
+            if (UserSingleton.getIntance().Role == new Staff().GetType().Name)
             {
-                return NotFound();
+                var category = SearchById(id);
+                if (category == null)
+                {
+                    return RedirectToAction("Index", "NotFound");
+                }
+                return View(category);
             }
-            return View(category);
+            return RedirectToAction("Index", "NotFound");
         }
 
         // POST:  Category/Edit/5
@@ -65,31 +80,35 @@ namespace AcademicManagement.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, [Bind("Id,Name,Description")] Category category)
         {
-            if (id != category.Id)
+            if (UserSingleton.getIntance().Role == new Staff().GetType().Name)
             {
-                return NotFound();
-            }
+                if (id != category.Id)
+                {
+                    return RedirectToAction("Index", "NotFound");
+                }
 
-            if (ModelState.IsValid)
-            {
-                try
+                if (ModelState.IsValid)
                 {
-                    EditModel(category);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CategoryExists(category.Id))
+                    try
                     {
-                        return NotFound();
+                        EditModel(category);
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!CategoryExists(category.Id))
+                        {
+                            return RedirectToAction("Index", "NotFound");
+                        }
+                        else
+                        {
+                            throw;
+                        }
                     }
+                    return RedirectToAction(nameof(Index));
                 }
-                return RedirectToAction(nameof(Index));
+                return View(category);
             }
-            return View(category);
+            return RedirectToAction("Index", "NotFound");
         }
 
         private bool CategoryExists(int id)
@@ -100,13 +119,16 @@ namespace AcademicManagement.Controllers
         // GET:  Category/Delete/5
         public IActionResult Delete(int id)
         {
-            var category = SearchById(id);
-            if (category == null)
+            if (UserSingleton.getIntance().Role == new Staff().GetType().Name)
             {
-                return NotFound();
+                var category = SearchById(id);
+                if (category == null)
+                {
+                    return RedirectToAction("Index", "NotFound");
+                }
+                return View(category);
             }
-
-            return View(category);
+            return RedirectToAction("Index", "NotFound");
         }
 
         // POST:  Category/Delete/5
@@ -114,9 +136,13 @@ namespace AcademicManagement.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
-            var category = SearchById(id);
-            DeleteModel(id);
-            return RedirectToAction(nameof(Index));
+            if (UserSingleton.getIntance().Role == new Staff().GetType().Name)
+            {
+                var category = SearchById(id);
+                DeleteModel(id);
+                return RedirectToAction(nameof(Index));
+            }
+            return RedirectToAction("Index", "NotFound");
         }
     }
 }

@@ -21,7 +21,7 @@ namespace AcademicManagement.Controllers
         // GET: Trainers
         public IActionResult Index()
         {
-            if(UserSingleton.getIntance().Role == new Staff().GetType().Name)
+            if(UserSingleton.getIntance().Role == new Staff().GetType().Name || UserSingleton.getIntance().Role == new Admin().GetType().Name)
             {
                 return View(ViewAll().ToList());
             }
@@ -31,7 +31,7 @@ namespace AcademicManagement.Controllers
         // GET: Trainers/Details/5
         public IActionResult Details(int id)
         {
-            if (UserSingleton.getIntance().Role == new Staff().GetType().Name)
+            if (UserSingleton.getIntance().Role == new Staff().GetType().Name || UserSingleton.getIntance().Role == new Admin().GetType().Name)
             {
                 var trainer = SearchById(id);
                 if (trainer == null)
@@ -47,7 +47,7 @@ namespace AcademicManagement.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Index([Bind("Id,Name,Email,Password,Telephone,WorkingPlace,Type")] Trainer trainer)
         {
-            if (UserSingleton.getIntance().Role == new Staff().GetType().Name)
+            if (UserSingleton.getIntance().Role == new Staff().GetType().Name || UserSingleton.getIntance().Role == new Admin().GetType().Name)
             {
                 if (ModelState.IsValid)
                 {
@@ -62,7 +62,7 @@ namespace AcademicManagement.Controllers
         // GET: Trainers/Edit/5
         public IActionResult Edit(int id)
         {
-            if (UserSingleton.getIntance().Role == new Staff().GetType().Name)
+            if (UserSingleton.getIntance().Role == new Staff().GetType().Name || UserSingleton.getIntance().Role == new Admin().GetType().Name)
             {
                 var trainer = SearchById(id);
                 if (trainer == null)
@@ -81,7 +81,7 @@ namespace AcademicManagement.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, [Bind("Id,Name,Email,Password,Telephone,WorkingPlace,Type")] Trainer trainer)
         {
-            if (UserSingleton.getIntance().Role == new Staff().GetType().Name)
+            if (UserSingleton.getIntance().Role == new Staff().GetType().Name || UserSingleton.getIntance().Role == new Admin().GetType().Name)
             {
                 if (id != trainer.Id)
                 {
@@ -115,7 +115,7 @@ namespace AcademicManagement.Controllers
         // GET: Trainers/Delete/5
         public IActionResult Delete(int id)
         {
-            if (UserSingleton.getIntance().Role == new Staff().GetType().Name)
+            if (UserSingleton.getIntance().Role == new Staff().GetType().Name || UserSingleton.getIntance().Role == new Admin().GetType().Name)
             {
                 var trainer = SearchById(id);
                 if (trainer == null)
@@ -132,7 +132,7 @@ namespace AcademicManagement.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
-            if (UserSingleton.getIntance().Role == new Staff().GetType().Name)
+            if (UserSingleton.getIntance().Role == new Staff().GetType().Name || UserSingleton.getIntance().Role == new Admin().GetType().Name)
             {
                 var trainer = SearchById(id);
                 DeleteModel(id);

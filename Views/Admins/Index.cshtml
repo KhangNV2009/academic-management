@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AcademicManagement.Models.Staff>
+﻿@model IEnumerable<AcademicManagement.Models.Admin>
 
 @{
     ViewData["Title"] = "Index";
@@ -6,18 +6,17 @@
 }
 
 <div class="margin-horizontal">
-    <a class="link-secondary bold h4" asp-action="Index" asp-controller="Admins">Admins</a>
-    <a class="link-primary bold margin-left h4" asp-action="Index" asp-controller="Staffs">Staffs</a>
+    <a class="link-primary bold h4" asp-action="Index" asp-controller="Admins">Admins</a>
+    <a class="link-secondary bold margin-left h4" asp-action="Index" asp-controller="Staffs">Staffs</a>
     <a class="link-secondary bold margin-left h4" asp-action="Index" asp-controller="Trainers">Trainers</a>
 </div>
 
-
-<h1>Management staffs</h1>
+<h1>Management admins</h1>
 
 <a class="link-primary pointer pointer"
    data-bs-toggle="modal"
-   data-bs-target="#createNewStaff">
-    Create new staff account
+   data-bs-target="#createNewAdmin">
+    Create new Admin account
 </a>
 
 <table class="table">
@@ -65,14 +64,14 @@
     </tbody>
 </table>
 
-<div class="modal fade" id="createNewStaff" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="createNewAdmin" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Create new staff account</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Create new Admin account</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method="post" asp-action="Index" asp-controller="Staffs">
+            <form method="post" asp-action="Index" asp-controller="Admins">
                 <div class="modal-body row">
                     <div class="col">
                         <div class="form-floating mb-3">
