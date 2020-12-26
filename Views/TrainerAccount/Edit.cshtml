@@ -1,11 +1,17 @@
 ﻿@model AcademicManagement.Models.Trainer
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Profile";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Edit Trainee</h1>
+
+<div class="margin-horizontal">
+    <a class="link-secondary bold h4" asp-action="Index">Schedule</a>
+    <a class="link-secondary bold margin-left h4" asp-action="Profile">Profile</a>
+    <a class="link-primary bold margin-left h4" asp-action="Edit">Edit Profile</a>
+</div>
 
 <div class="card">
     <div class="card-body">

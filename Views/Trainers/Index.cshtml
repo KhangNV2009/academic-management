@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<AcademicManagement.Models.Trainer>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Trainers Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -25,11 +25,17 @@ else
 
 <h1>Trainer management</h1>
 
-<a class="link-primary pointer"
-   data-bs-toggle="modal"
-   data-bs-target="#createNewTrainer">
-    Create new trainee account
-</a>
+<div class="search_add">
+    <a class="link-primary pointer"
+       data-bs-toggle="modal"
+       data-bs-target="#createNewTrainer">
+        Create new trainee account
+    </a>
+    <form class="d-flex" method="get" asp-action="Index" asp-controller="Trainers">
+        <input class="form-control me-2" type="search" name="name" placeholder="Search" aria-label="Search">
+        <input class="btn btn-outline-success" type="submit" />
+    </form>
+</div>
 
 <table class="table">
     <thead>

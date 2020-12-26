@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<AcademicManagement.Models.Trainee>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Trainees Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -13,11 +13,17 @@
 
 <h1>Management trainees</h1>
 
-<a class="link-primary pointer"
-   data-bs-toggle="modal"
-   data-bs-target="#createNewTrainee">
-    Create new trainee account
-</a>
+<div class="search_add">
+    <a class="link-primary pointer"
+       data-bs-toggle="modal"
+       data-bs-target="#createNewTrainee">
+        Create new trainee account
+    </a>
+    <form class="d-flex" method="get" asp-action="Index" asp-controller="Trainees">
+        <input class="form-control me-2" type="search" name="name" placeholder="Search" aria-label="Search">
+        <input class="btn btn-outline-success" type="submit"/>
+    </form>
+</div>
 
 <table class="table">
     <thead>

@@ -45,7 +45,7 @@ namespace AcademicManagement.FactoryMethod
             var course = context.Courses.ToList().Find(item => item.Id == id);
             var category = context.Categories.ToList().Find(item => item.Id == course.Category.Id);
 
-            if(course.Topics != null)
+            if (course.Topics != null)
             {
                 course.Topics.ToList().ForEach(item =>
                 {
@@ -61,17 +61,22 @@ namespace AcademicManagement.FactoryMethod
             });
             course.TraineeCourses = courseTrainees;
             course.Category = category;
-            return course;
+            return course;  
         }
 
         public List<Course> SearchByName(string name)
         {
-            throw new NotImplementedException();
+            return ViewAll().FindAll(item => item.Name.Contains(name));
         }
 
         public List<Course> ViewAll()
         {
-            throw new NotImplementedException();
+            var courses = this.context.Courses.ToList();
+            courses.ForEach(course =>
+            {
+                course = SearchById(course.Id);
+            });
+            return courses;
         }
         public void AddNewTraineeCourse(int[] listId, Course course)
         {

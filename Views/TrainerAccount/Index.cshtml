@@ -1,73 +1,40 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@model AcademicManagement.Models.Trainer
-@{
-    var email = UserSingleton.getIntance().Email;
-    var imageLink = "/avatars/" + email + ".jpg";
+﻿@model IEnumerable<AcademicManagement.Models.Course>
+@{ 
+    ViewData["Title"] = "Schedule";
 }
-
-<div class="card m-5">
-    <div class="card-body">
-        <form method="post" asp-action="Edit" asp-controller="Trainees">
-            <div class="modal-body row">
-                <h4>My Account</h4>
-                <div class="">
-                    <div class="profile-card">
-                        @if (ViewBag.IsUpload)
-                        {
-                            <img src="@imageLink" class="img-thumbnail cover-photo" alt="..." height="120" width="120">
-                        }
-                        else
-                        {
-                            <img src="/images/images.png" class="img-thumbnail cover-photo" alt="..." height="120" width="120">
-                        }
-                        <div class="profile-name">@Html.DisplayFor(model => model.Name)</div>
-                    </div>
-                </div>
-                <br />
-                <p>View and edit your personal info below</p>
-                <hr />
-                <div class="col">
-                    <div class="form-floating mb-3">
-                        <input type="text" asp-for="Name" class="form-control pl-4" id="floatingInput" disabled>
-                        <label for="floatingInput" class="ml-5">Full name</label>
-                    </div>
-                </div>
-                <div class="">
-                    <div class="form-floating mb-3">
-                        <input type="text" asp-for="Email" class="form-control pl-4" id="floatingInput" disabled>
-                        <label for="floatingInput" class="ml-5">Email</label>
-                    </div>
-                </div>
-                <div class="">
-                    <div class="form-floating mb-3">
-                        <input type="text" asp-for="Password" class="form-control pl-4" id="floatingInput" disabled>
-                        <label for="floatingInput" class="ml-5">Password</label>
-                    </div>
-                </div>
-                <div class="">
-                    <div class="form-floating mb-3">
-                        <input type="tel" asp-for="Telephone" class="form-control pl-4" id="floatingInput" disabled>
-                        <label for="floatingInput" class="ml-5">Telephone</label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-floating mb-3">
-                        <input type="text" asp-for="WorkingPlace" class="form-control pl-4" id="floatingInput" disabled>
-                        <label for="floatingInput" class="ml-5">WorkingPlace</label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-floating mb-3">
-                        <input type="text" asp-for="Type" class="form-control pl-4" id="floatingInput" disabled>
-                        <label for="floatingInput" class="ml-5">Type</label>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <a asp-action="Edit" class="btn btn-primary">Edit</a>
-            </div>
-        </form>
+<div class="container-lg">
+    <h1>Schedule</h1>
+    <div class="margin-horizontal">
+        <a class="link-primary bold h4" asp-action="Index">Schedule</a>
+        <a class="link-secondary bold margin-left h4" asp-action="Profile">Profile</a>
+        <a class="link-secondary bold margin-left h4" asp-action="Edit">Edit Profile</a>
     </div>
+    @foreach (Course item in Model)
+    {
+        <div class="shadow-sm course-border p-5 mt-3">
+            <div class="name_course_X">
+                <div class="name_course">
+                    <h3>@item.Name</h3> 
+                </div>
+            </div>
+            <div class="course-container">
+                <div class="course-info-container">
+                    @if (item.Topics != null)
+                    {
+                        @foreach (Topic topic in item.Topics)
+                        {
+                            @if (topic.Trainer.Id == ViewBag.TrainerId)
+                            {
+                                <div class="topic-container">
+                                    <div>
+                                        <p>Topic: @topic.Name </p>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    }
 </div>

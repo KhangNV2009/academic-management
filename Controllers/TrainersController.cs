@@ -19,11 +19,18 @@ namespace AcademicManagement.Controllers
         }
 
         // GET: Trainers
-        public IActionResult Index()
+        public IActionResult Index([FromQuery(Name = "name")] string name)
         {
             if(UserSingleton.getIntance().Role == new Staff().GetType().Name || UserSingleton.getIntance().Role == new Admin().GetType().Name)
             {
-                return View(ViewAll().ToList());
+                if (name == null)
+                {
+                    return View(ViewAll().ToList());
+                }
+                else
+                {
+                    return View(SearchByName(name));
+                }
             }
             return RedirectToAction("Index", "NotFound");
         }

@@ -17,16 +17,18 @@ namespace AcademicManagement.Controllers
             this.context = context;
         }
 
-        public IActionResult Index()
+        public IActionResult Index([FromQuery(Name = "name")] string name)
         {
             if (UserSingleton.getIntance().Role == new Staff().GetType().Name)
             {
-                var courses = this.context.Courses.ToList();
-                courses.ForEach(course =>
+                if (name == null)
                 {
-                    course = SearchById(course.Id);
-                });
-                return View(courses);
+                    return View(ViewAll());
+                }
+                else
+                {
+                    return View(SearchByName(name));
+                }
             }
             return RedirectToAction("Index", "NotFound");
         }

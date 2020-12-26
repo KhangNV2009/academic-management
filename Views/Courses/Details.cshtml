@@ -1,7 +1,7 @@
 ﻿@model AcademicManagement.Models.Course;
 
 @{
-    ViewData["Title"] = "Courses";
+    ViewData["Title"] = "Courses Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -111,19 +111,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (Topic item in Model.Topics)
+                            @if (Model.Topics != null)
                             {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Id)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Name)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Trainer.Name)
-                                    </td>
-                                </tr>
+                                @foreach (Topic item in Model.Topics)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Id)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Trainer.Name)
+                                        </td>
+                                    </tr>
+                                }
                             }
                         </tbody>
                     </table>

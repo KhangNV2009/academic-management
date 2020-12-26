@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<AcademicManagement.Models.Staff>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Staffs Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -14,11 +14,17 @@
 
 <h1>Management staffs</h1>
 
-<a class="link-primary pointer pointer"
-   data-bs-toggle="modal"
-   data-bs-target="#createNewStaff">
-    Create new staff account
-</a>
+<div class="search_add">
+    <a class="link-primary pointer pointer"
+       data-bs-toggle="modal"
+       data-bs-target="#createNewStaff">
+        Create new staff account
+    </a>
+    <form class="d-flex" method="get" asp-action="Index" asp-controller="Staffs">
+        <input class="form-control me-2" type="search" name="name" placeholder="Search" aria-label="Search">
+        <input class="btn btn-outline-success" type="submit" />
+    </form>
+</div>
 
 <table class="table">
     <thead>

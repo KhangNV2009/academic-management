@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<AcademicManagement.Models.Course>
 
 @{
-    ViewData["Title"] = "Courses";
+    ViewData["Title"] = "Courses Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -19,11 +19,11 @@
 <div class="container-lg">
     <h1>Courses Page</h1>
     <div class="search_add">
-        <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+        <a asp-action="Create">Create new a course</a>
+        <form class="d-flex" method="get" asp-action="Index" asp-controller="Courses">
+            <input class="form-control me-2" type="search" name="name" placeholder="Search" aria-label="Search">
+            <input class="btn btn-outline-success" type="submit" />
         </form>
-        <a asp-action="Create">Add New</a>
     </div>
     @foreach (Course item in Model)
     {
