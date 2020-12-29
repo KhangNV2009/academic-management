@@ -15,4 +15,5 @@
 </ol>
 </li>
 <li>Build and run the AcademicManagement project</li>
+<li>You can connect the server using Microsoft SQL Server Management Studio with Server Name: "(localdb)\MSSQLLocalDB"</li>
 </ol>
